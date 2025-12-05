@@ -4,9 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import { ToastContainer } from 'react-toastify'
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
-    <ToastContainer/>
-  </StrictMode>,
-)
+    <ToastContainer
+      position="top-center"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      pauseOnHover
+      draggable
+    />
+  </StrictMode>
+);
