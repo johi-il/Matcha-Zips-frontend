@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 
 
-function page_layout() {
+function Page_layout() {
   const [outfits, setOutfits] = useState([]);
 
   useEffect(() => {
@@ -16,10 +16,12 @@ function page_layout() {
   }, []);
 
   return (
-    <div className="m-0 p-0 w-[80vw] grid grid-cols-[repeat(auto-fill,250px)] auto-rows-[10px] absolute left-1/2 -translate-x-1/2 justify-center bg-black">
+    <div className="max-w-7xl mx-auto px-4 py-8 bg-amber-800">
+      <h1 className="text-3xl sm:text-4xl font-bold" mb-8 text-centre>  Quarter Zip Galleria</h1>
+      <Card prop={outfits} />
 
     </div>
   );
 }
 
-export default page_layout
+export default Page_layout
