@@ -16,8 +16,8 @@ function OutfitForm() {
       .then((data) => setBrandName(data))
       .catch((err) => console.error("Failed to load Brands:", err));
 
-      target =brandName
-  }, []);
+    }, []);
+    
 
 
 
@@ -82,7 +82,7 @@ function OutfitForm() {
   return (
     <form
       className="max-w-md mx-auto space-y-4 bg-white/80 backdrop-blur rounded-xl p-6 shadow"
-      onSubmit={handleSubmit} // replace with your submit handler
+      onSubmit={handleSubmit} 
     >
       <h2 className="text-xl font-semibold text-slate-900">
         Add a Matcha‑Zip Outfit
@@ -99,7 +99,7 @@ function OutfitForm() {
           className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
         >
           <option value="">Choose...</option>
-          {brandName.map((brand) => (
+          {(brandName || []).map((brand) => (
             <option key={brand.id} value={brand.name}>
               {brand.name}
             </option>
