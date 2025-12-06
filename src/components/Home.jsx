@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./Navbar"; // Import your Navbar component
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -12,7 +11,7 @@ const Home = () => {
               Quarter zips, matcha vibes only
             </h1>
             <p className="font-sans text-lg md:text-xl text-gray-700 max-w-md">
-              Double-tap your favorite looks, save inspo, and spill some matcha.
+              Tap your favorite looks, save inspo, and spill some matcha.
               Discover trending quarter zips or share your own style—Pinterest
               energy, TikTok flair.
             </p>
@@ -33,12 +32,8 @@ const Home = () => {
               </Link>
             </div>
           </div>
-
-          {/* Right Image Placeholder */}
           <div className="relative">
-            {/* This is where your image would go */}
             <div className="aspect-square bg-gray-200 rounded-lg shadow-lg">
-              {/* Replace with your actual image */}
               <img
                 src="https://cdn.pixabay.com/photo/2021/11/12/13/14/sweater-6788998_1280.jpg"
                 alt="Quarter zip fashion"
