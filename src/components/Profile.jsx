@@ -3,10 +3,10 @@ import OutfitForm from './OutfitForm'
 
 function Profile() {
   return (
-    <div>
-        <OutfitForm />
+    <div className="bg-[#e3ecd9] " >
+      <OutfitForm />
     </div>
-  )
+  );
 }
 
 export default Profile

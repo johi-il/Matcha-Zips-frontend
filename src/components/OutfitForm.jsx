@@ -28,10 +28,6 @@ function OutfitForm() {
       return;
     }
 
-
-
-
-
         // If no conflict we proceed to create outfit
     const newOutfit = {
       name: outfitName.trim(),

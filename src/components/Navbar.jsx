@@ -8,11 +8,11 @@ function Navbar (){
 
   // Function to determine if a link is active
   const isActive = (path) => {
-    return location.pathname === path ? "bg-[#1d803d]" : "";
+    return location.pathname === path ? "bg-[#e3cd]" : "";
   };
 
   return (
-    <nav className="bg-[#c5d751] sticky top-0 z-50 shadow-md">
+    <nav className="bg-[#e3ecd9] sticky top-0 z-50 shadow-md border">
       <div className="container mx-auto px-4">
         {/* Desktop Navbar */}
         <div className="hidden md:flex justify-center items-center h-16">
@@ -70,7 +70,7 @@ function Navbar (){
 
         {/* Mobile Menu */}
         <div
-          className={`${isOpen ? "block" : "hidden"} md:hidden bg-[#c5d751]`}
+          className={`${isOpen ? "block" : "hidden"} md:hidden bg-[#e3ecd9]`}
         >
           <Link
             to="/"
