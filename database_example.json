@@ -1,19 +1,19 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "lewis_zip",
       "avatar_url": "https://i.pinimg.com/1200x/f8/99/17/f89917bc34bbb48fa1553c754818b8fb.jpg",
       "bio": "Quarter-zip enthusiast. Always cozy, always stylish."
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "alice_layers",
       "avatar_url": "https://i.pinimg.com/1200x/43/a4/cb/43a4cb3171778457abc24369183257c8.jpg",
       "bio": "Layering queen. Quarter-zips for every season."
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "james_sporty",
       "avatar_url": "https://i.pinimg.com/736x/be/72/3a/be723ab1e68b0ce4b63c8ff911bbecfe.jpg",
       "bio": "Athleisure addict. Quarter-zips for workouts and lounging."
@@ -21,56 +21,56 @@
   ],
   "brands": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Nike",
       "description": "Performance-driven quarter-zips for athletes."
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Patagonia",
       "description": "Eco-friendly quarter-zips for outdoor adventures."
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Lululemon",
       "description": "Stylish and comfortable quarter-zips for everyday wear."
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Under Armour",
       "description": "High-performance quarter-zips for training."
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Ralph Lauren",
       "description": "Luxury quarter-zips for a polished look."
     }
   ],
   "occasions": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Casual",
       "description": "Everyday wear for lounging or running errands."
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Athletic",
       "description": "Workouts, gym sessions, or outdoor activities."
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Travel",
       "description": "Comfortable and stylish for flights or road trips."
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Office",
       "description": "Smart-casual quarter-zips for the workplace."
     }
   ],
   "outfits": [
     {
-      "id": 1,
+      "id": "1",
       "user_id": 1,
       "brand_id": 1,
       "occasion_id": 2,
@@ -80,17 +80,17 @@
       "image_url": "https://i.pinimg.com/736x/a7/65/e3/a765e3ccbceff6e7c2196621fcf343d1.jpg"
     },
     {
-      "id": 2,
+      "id": "2",
       "user_id": 1,
       "brand_id": 2,
       "occasion_id": 3,
       "name": "Patagonia Fleece Quarter-Zip",
       "description": "Warm and eco-friendly quarter-zip for travel or outdoor adventures. Pairs well with jeans.",
       "color": "navy",
-      "image_url":"https://i.pinimg.com/1200x/0f/4c/4a/0f4c4af8c4cc75e30360c372d0ec6cc4.jpg"
+      "image_url": "https://i.pinimg.com/1200x/0f/4c/4a/0f4c4af8c4cc75e30360c372d0ec6cc4.jpg"
     },
     {
-      "id": 3,
+      "id": "3",
       "user_id": 2,
       "brand_id": 3,
       "occasion_id": 1,
@@ -100,7 +100,7 @@
       "image_url": "https://i.pinimg.com/1200x/ce/41/fb/ce41fbc77009d31e52034d8d2cbcd6d6.jpg"
     },
     {
-      "id": 4,
+      "id": "4",
       "user_id": 2,
       "brand_id": 5,
       "occasion_id": 4,
@@ -110,17 +110,17 @@
       "image_url": "https://i.pinimg.com/736x/bc/de/7f/bcde7f7029a4038640b5f4df922b1455.jpg"
     },
     {
-      "id": 5,
+      "id": "5",
       "user_id": 3,
       "brand_id": 4,
       "occasion_id": 2,
       "name": "Under Armour HeatGear Quarter-Zip",
       "description": "High-performance quarter-zip for intense workouts. Moisture-wicking fabric keeps you cool.",
       "color": "white",
-      "image_url":"https://i.pinimg.com/736x/b9/5c/11/b95c11051235cc1588f9a3e51af54892.jpg"
+      "image_url": "https://i.pinimg.com/736x/b9/5c/11/b95c11051235cc1588f9a3e51af54892.jpg"
     },
     {
-      "id": 6,
+      "id": "6",
       "user_id": 3,
       "brand_id": 1,
       "occasion_id": 1,
@@ -128,26 +128,35 @@
       "description": "Versatile quarter-zip for casual wear. Lightweight and breathable.",
       "color": "light blue",
       "image_url": "https://i.pinimg.com/1200x/29/00/21/290021b3c0f535b48bd987f764816668.jpg"
+    },
+    {
+      "id": "9886",
+      "name": "Business Outfit",
+      "description": "Polo Ralph Lauren Quarter Zip Men’s | Business outfit | Business Casual | Smart Casual | Finance",
+      "color": "grey",
+      "image_url": "https://i.pinimg.com/736x/65/23/5e/65235ea9672232c6fe8f66d8ebfc328b.jpg",
+      "brand_id": "5",
+      "status": "scheduled"
     }
   ],
   "favorites": [
     {
-      "id": 1,
+      "id": "1",
       "user_id": 1,
       "outfit_id": 3
     },
     {
-      "id": 2,
+      "id": "2",
       "user_id": 1,
       "outfit_id": 5
     },
     {
-      "id": 3,
+      "id": "3",
       "user_id": 2,
       "outfit_id": 1
     },
     {
-      "id": 4,
+      "id": "4",
       "user_id": 3,
       "outfit_id": 2
     }

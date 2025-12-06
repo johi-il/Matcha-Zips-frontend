@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
+import {toast} from 'react-toastify';
 
 
 function OutfitForm() {
@@ -7,19 +8,17 @@ function OutfitForm() {
  const [description, setDescription] = useState("");
  const [color , setColor] = useState("");
  const [image_url, setImage_url] = useState("");
- const [brandName, setBrandName] = useState([]);
+ const [brandName, setBrandName] = useState("");
+ const [brands,setBrands]=useState([]);
 
 
  useEffect(() => {
-    fetch("http://localhost:3001/brands")
-      .then((r) => r.json())
-      .then((data) => setBrandName(data))
-      .catch((err) => console.error("Failed to load Brands:", err));
-
-    }, []);
+   fetch("http://localhost:3001/brands")
+     .then((r) => r.json())
+     .then((data) => setBrands(data))
+     .catch((err) => console.error("Failed to load Brands:", err));
+ }, []);
     
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,55 +28,44 @@ function OutfitForm() {
       return;
     }
 
-    fetch("http://localhost:3001/brands")
-      .then((r) => r.json())
-      .then((brandName) => {
-        const present = brandName.find(
-          (brand) => brand.brandName === brandName 
-        );
 
-        if (present) {
-          toast.error(
-            "looks like the brand exists"
-          );
-          throw new Error("brand already present");
-        }
+
+
 
         // If no conflict we proceed to create outfit
-        const newOutfit= {
-          outfitName: outfitName.trim(),
-          description: description.trim(),
-          color: color.toLowerCase(),
-          image_url,
-          brandName,
-          status: "scheduled",
-        };
+    const newOutfit = {
+      name: outfitName.trim(),
+      description: description.trim(),
+      color: color.toLowerCase(),
+      image_url: image_url.trim(),
+      brand_id: brands.find(brand => brand.name === brandName)?.id,
+      status: "scheduled",
+    };
 
-        return fetch("http://localhost:3001/outfits", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newOutfit),
-        });
-      })
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then(() => {
-        toast.success("outfit added successfully!");
-        setOutfitName("");
-        setDescription("");
-        setColor("");
-        setImage_url("");
-        setBrandName("");
-      })
-      .catch((error) => {
-        if (error.message !== "Doctor already booked") {
-          console.error("Error:", error);
-          toast.error("There was a problem adding your outfit please try again.");
-        }
-      });
+    fetch("http://localhost:3001/outfits", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newOutfit),
+    })
+    .then((response) => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then(() => {
+      toast.success("Outfit added successfully!");
+      setOutfitName("");
+      setDescription("");
+      setColor("");
+      setImage_url("");
+      setBrandName("");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      toast.error("There was a problem adding your outfit. Please try again.");
+    });
   };
+
+
     
   return (
     <form
@@ -97,9 +85,10 @@ function OutfitForm() {
           value={brandName}
           onChange={(e) => setBrandName(e.target.value)}
           className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          required
         >
           <option value="">Choose...</option>
-          {(brandName || []).map((brand) => (
+          {brands.map((brand) => (
             <option key={brand.id} value={brand.name}>
               {brand.name}
             </option>
@@ -116,7 +105,7 @@ function OutfitForm() {
           Outfit name
         </label>
         <input
-          value="outfitName"
+          value={outfitName}
           onChange={(e) => setOutfitName(e.target.value)}
           type="text"
           required
@@ -134,8 +123,8 @@ function OutfitForm() {
           Description
         </label>
         <textarea
-          value="description"
-          onChange={(e) => setBrandName(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           rows={4}
           className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40 outline-none"
           placeholder="Tell us about this quarter‑zip look..."
@@ -151,7 +140,7 @@ function OutfitForm() {
           Main color
         </label>
         <input
-          value="color"
+          value={color}
           onChange={(e) => setColor(e.target.value)}
           type="text"
           className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40 outline-none"
@@ -168,7 +157,7 @@ function OutfitForm() {
           Image URL
         </label>
         <input
-          value="image_url"
+          value={image_url}
           onChange={(e) => setImage_url(e.target.value)}
           type="url"
           required

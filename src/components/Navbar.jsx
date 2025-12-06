@@ -1,40 +1,50 @@
-import React from 'react'
-
-
-
-
+import React from "react";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar = () => {
+function Navbar (){
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  // Function to determine if a link is active
+  const isActive = (path) => {
+    return location.pathname === path ? "bg-[#1d803d]" : "";
+  };
 
   return (
-    <nav className="bg-brown-800 bg-[#c5d751] sticky top-0 z-50 shadow-md ">
+    <nav className="bg-[#c5d751] sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4">
         {/* Desktop Navbar */}
         <div className="hidden md:flex justify-center items-center h-16">
           <div className="flex space-x-8">
-            <a
-              href="#"
-              className="hover:bg-[#1d803d] px-4 py-2 rounded-md transition duration-300"
+            <Link
+              to="/"
+              className={`px-4 py-2 rounded-md transition duration-300 ${isActive(
+                "/"
+              )}`}
             >
               Home
-            </a>
-            <a
-              href="#"
-              className="hover:bg-[#1d803d] px-4 py-2 rounded-md transition duration-300"
+            </Link>
+            <Link
+              to="/gallery"
+              className={`px-4 py-2 rounded-md transition duration-300 ${isActive(
+                "/gallery"
+              )}`}
             >
               Gallery
-            </a>
-            <a
-              href="#"
-              className="hover:bg-[#1d803d] px-4 py-2 rounded-md transition duration-300"
+            </Link>
+            <Link
+              to="/profile"
+              className={`px-4 py-2 rounded-md transition duration-300 ${isActive(
+                "/profile"
+              )}`}
             >
               Profile
-            </a>
+            </Link>
           </div>
         </div>
 
+        {/* Mobile Navbar */}
         <div className="md:hidden flex justify-between items-center h-16">
           <div className="text-xl font-bold">Quarter-Zip</div>
           <button
@@ -58,7 +68,38 @@ const Navbar = () => {
           </button>
         </div>
 
-
+        {/* Mobile Menu */}
+        <div
+          className={`${isOpen ? "block" : "hidden"} md:hidden bg-[#c5d751]`}
+        >
+          <Link
+            to="/"
+            className={`block px-4 py-2 transition duration-300 ${isActive(
+              "/"
+            )}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            to="/gallery"
+            className={`block px-4 py-2 transition duration-300 ${isActive(
+              "/gallery"
+            )}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Gallery
+          </Link>
+          <Link
+            to="/profile"
+            className={`block px-4 py-2 transition duration-300 ${isActive(
+              "/profile"
+            )}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Profile
+          </Link>
+        </div>
       </div>
     </nav>
   );

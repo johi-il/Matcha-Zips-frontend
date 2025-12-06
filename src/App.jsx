@@ -1,21 +1,20 @@
-import React from 'react'
-import Button from "./components/Button.jsx"
-import Page_layout from './components/OutfitLayout.jsx';
-import Navbar from './components/Navbar.jsx'
-import OutfitForm from './components/OutfitForm.jsx';
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import OutfitLayout from "./components/OutfitLayout";
+import Profile from "./components/Profile";
 
 function App() {
   return (
-    <div>
-      <Navbar/>
-      <Page_layout/>
-      < Button />
-      <OutfitForm/>
-
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/gallery" element={<OutfitLayout />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default App
+export default App;
