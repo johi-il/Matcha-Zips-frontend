@@ -36,15 +36,12 @@ function Profile() {
       <div className="max-w-8xl mx-auto">
         <div className="flex  gap-8">
 
-          <div >
-            <div>
-              <User/>
-            </div>
+        
 
           <div className="bg-gradient-to-r from-lime-400 via-lime-600 to-cyan-500   h-min  rounded-xl shadow-md p-6 w-2xl">
             <OutfitForm />
           </div>
-          </div>
+  
           {/* Outfit Form  */}
 
           <div className="lg:col-span-2">

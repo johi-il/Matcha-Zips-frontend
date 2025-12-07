@@ -1,50 +1,79 @@
-import React from 'react'
-import { useState,useEffect } from 'react';
-import {toast} from 'react-toastify';
-
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 function OutfitForm() {
- const [outfitName, setOutfitName] = useState("");
- const [description, setDescription] = useState("");
- const [color , setColor] = useState("");
- const [image_url, setImage_url] = useState("");
- const [brandName, setBrandName] = useState("");
- const [brands,setBrands]=useState([]);
+  const [outfitName, setOutfitName] = useState("");
+  const [description, setDescription] = useState("");
+  const [color, setColor] = useState("");
+  const [image_url, setImage_url] = useState("");
 
+  const [brandId, setBrandId] = useState("");
+  const [occasionId, setOccasionId] = useState("");
 
- useEffect(() => {
-   fetch("http://127.0.0.1:8000/brand")
-     .then((r) => r.json())
-     .then((data) => setBrands(data))
-     .catch((err) => console.error("Failed to load Brands:", err));
- }, []);
-    
+  const [brands, setBrands] = useState([]);
+  const [occasions, setOccasions] = useState([]);
+
+  // TODO: replace with real logged-in user id
+  const USER_ID = 1;
+
+  // load brands
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/brand")
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load brands");
+        return r.json();
+      })
+      .then((data) => setBrands(data))
+      .catch((err) => {
+        console.error("Failed to load Brands:", err);
+        toast.error("Failed to load brands");
+      });
+  }, []);
+
+  // load occasions
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/occasion")
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load occasions");
+        return r.json();
+      })
+      .then((data) => setOccasions(data))
+      .catch((err) => {
+        console.error("Failed to load Occasions:", err);
+        toast.error("Failed to load occasions");
+      });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!outfitName || !description || !color || !image_url || !brandName) {
-      toast.warning("Please fill in all fields.");
+    if (!outfitName || !description || !color || !image_url) {
+      toast.warning("Please fill in all required fields.");
       return;
     }
 
-        // If no conflict we proceed to create outfit
+    // build payload matching OutfitSchema
     const newOutfit = {
+      user_id: USER_ID,
+      brand_id: brandId ? Number(brandId) : null,
+      occasion_id: occasionId ? Number(occasionId) : null,
       name: outfitName.trim(),
       description: description.trim(),
       color: color.toLowerCase(),
       image_url: image_url.trim(),
-      brand_id: brands.find(brand => brand.name === brandName)?.id,
-      status: "scheduled",
     };
 
-    fetch("http://127.0.0.1:8000/outfits", {
+    fetch("http://127.0.0.1:8000/outfit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newOutfit),
     })
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
+      .then(async (response) => {
+        if (!response.ok) {
+          const errBody = await response.json().catch(() => null);
+          console.error("Backend error body:", errBody);
+          throw new Error("Network response was not ok");
+        }
         return response.json();
       })
       .then(() => {
@@ -53,7 +82,8 @@ function OutfitForm() {
         setDescription("");
         setColor("");
         setImage_url("");
-        setBrandName("");
+        setBrandId("");
+        setOccasionId("");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -63,32 +93,48 @@ function OutfitForm() {
       });
   };
 
-
-    
   return (
     <form
       className="max-w-md mx-auto space-y-4 bg-white/80 backdrop-blur rounded-xl p-6 shadow"
-      onSubmit={handleSubmit} 
+      onSubmit={handleSubmit}
     >
       <h2 className="text-xl font-semibold text-slate-900">
         Add a Matcha‑Zip Outfit
       </h2>
 
-      {/*brand selecting*/}
+      {/* Brand select (optional) */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Select brand
+          Select brand (optional)
         </label>
         <select
-          value={brandName}
-          onChange={(e) => setBrandName(e.target.value)}
+          value={brandId}
+          onChange={(e) => setBrandId(e.target.value)}
           className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-          required
         >
-          <option value="">Choose...</option>
+          <option value="">No brand</option>
           {brands.map((brand) => (
-            <option key={brand.id} value={brand.name}>
+            <option key={brand.id} value={brand.id}>
               {brand.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Occasion select (optional) */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Occasion (optional)
+        </label>
+        <select
+          value={occasionId}
+          onChange={(e) => setOccasionId(e.target.value)}
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        >
+          <option value="">No occasion</option>
+          {occasions.map((occ) => (
+            <option key={occ.id} value={occ.id}>
+              {occ.name}
             </option>
           ))}
         </select>
@@ -124,6 +170,7 @@ function OutfitForm() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
+          required
           className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40 outline-none"
           placeholder="Tell us about this quarter‑zip look..."
         />
@@ -141,6 +188,7 @@ function OutfitForm() {
           value={color}
           onChange={(e) => setColor(e.target.value)}
           type="text"
+          required
           className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40 outline-none"
           placeholder="e.g. #22c55e or Matcha Green"
         />
@@ -174,4 +222,4 @@ function OutfitForm() {
   );
 }
 
-export default OutfitForm
+export default OutfitForm;

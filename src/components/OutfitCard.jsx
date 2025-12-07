@@ -1,15 +1,12 @@
-
 import React, { useState, useEffect } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
-function Card({ prop, onToggleSave }) {
-  // Load saved outfits from localStorage
+function Card({ prop, onToggleSave, occasionById }) {
   const [savedOutfits, setSavedOutfits] = useState(() => {
     const saved = localStorage.getItem("savedOutfits");
     return saved ? JSON.parse(saved) : {};
   });
 
-  // Save to localStorage whenever savedOutfits changes
   useEffect(() => {
     localStorage.setItem("savedOutfits", JSON.stringify(savedOutfits));
   }, [savedOutfits]);
@@ -25,11 +22,7 @@ function Card({ prop, onToggleSave }) {
     }
 
     setSavedOutfits(newSavedOutfits);
-
-    // Call the parent callback if provided
-    if (onToggleSave) {
-      onToggleSave(newSavedOutfits);
-    }
+    onToggleSave?.(newSavedOutfits);
   };
 
   return (
@@ -37,6 +30,7 @@ function Card({ prop, onToggleSave }) {
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
         {prop.map((outfit) => {
           const isSaved = !!savedOutfits[outfit.id];
+          const occasion = occasionById?.[outfit.occasion_id];
 
           return (
             <div
@@ -69,8 +63,13 @@ function Card({ prop, onToggleSave }) {
                     </h3>
                     <p className="text-white">{outfit.description}</p>
                     <li className="text-base font-light text-white">
-                      Occasion: {outfit.occasion_id}
+                      Occasion: {occasion?.name || `#${outfit.occasion_id}`}
                     </li>
+                    {occasion?.description && (
+                      <li className="text-sm font-light text-white">
+                        {occasion.description}
+                      </li>
+                    )}
                     <li className="text-base font-light text-white">
                       Color: {outfit.color}
                     </li>
