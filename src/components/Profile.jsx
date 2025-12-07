@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import OutfitForm from "./OutfitForm";
+import User from "./User";
 
 function Profile() {
   // State for saved outfits
@@ -34,10 +35,17 @@ function Profile() {
     <div className="bg-[#e3ecd9] min-h-screen p-4 md:p-8">
       <div className="max-w-8xl mx-auto">
         <div className="flex  gap-8">
-          {/* Outfit Form  */}
-          <div className="bg-gradient-to-r from-lime-400 via-lime-600 to-cyan-500 bg-[#124e25]  h-min  rounded-xl shadow-md p-6 w-2xl">
+
+          <div >
+            <div>
+              <User/>
+            </div>
+
+          <div className="bg-gradient-to-r from-lime-400 via-lime-600 to-cyan-500   h-min  rounded-xl shadow-md p-6 w-2xl">
             <OutfitForm />
           </div>
+          </div>
+          {/* Outfit Form  */}
 
           <div className="lg:col-span-2">
             <div className="bg-[#c5d7b1] rounded-xl shadow-md p-6">
@@ -51,7 +59,7 @@ function Profile() {
                     You haven't saved any outfits yet.
                   </p>
                   <p className="text-gray-400">
-                    Enda gallery buana!!!
+                    Enda gallery buana !!!
                   </p>
                 </div>
               ) : (
@@ -67,7 +75,7 @@ function Profile() {
                         className="w-full h-48 object-cover"
                       />
 
-                      
+
                       <button
                         onClick={() => removeOutfit(outfit.id)}
                         className="absolute top-2 right-2 z-10 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-all duration-200"

@@ -13,7 +13,7 @@ function OutfitForm() {
 
 
  useEffect(() => {
-   fetch("http://localhost:3001/brands")
+   fetch("http://127.0.0.1:8000/brand")
      .then((r) => r.json())
      .then((data) => setBrands(data))
      .catch((err) => console.error("Failed to load Brands:", err));
@@ -38,27 +38,29 @@ function OutfitForm() {
       status: "scheduled",
     };
 
-    fetch("http://localhost:3001/outfits", {
+    fetch("http://127.0.0.1:8000/outfits", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newOutfit),
     })
-    .then((response) => {
-      if (!response.ok) throw new Error("Network response was not ok");
-      return response.json();
-    })
-    .then(() => {
-      toast.success("Outfit added successfully!");
-      setOutfitName("");
-      setDescription("");
-      setColor("");
-      setImage_url("");
-      setBrandName("");
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      toast.error("There was a problem adding your outfit. Please try again.");
-    });
+      .then((response) => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then(() => {
+        toast.success("Outfit added successfully!");
+        setOutfitName("");
+        setDescription("");
+        setColor("");
+        setImage_url("");
+        setBrandName("");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error(
+          "There was a problem adding your outfit. Please try again."
+        );
+      });
   };
 
 
